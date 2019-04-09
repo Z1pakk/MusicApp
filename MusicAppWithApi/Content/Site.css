@@ -1,15 +1,18 @@
 ﻿body {
-    padding-top:0px;
+    padding-top: 0px;
     padding-bottom: 0px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    margin-top:15px;
+    margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
 }
-
+.container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -17,4 +20,31 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */s
+.card-content {
+    margin-bottom: 30px;
+}
+
+.pag-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+    .pag-buttons .btn {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    .pag-buttons .btn:last-child {
+        margin-left: 5px;
+    }
+    @media(max-width:780px){
+        .pag-buttons {
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+        .pag-buttons .btn {
+            width:50%;
+        }
+    }

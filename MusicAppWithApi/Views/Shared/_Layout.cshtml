@@ -32,10 +32,11 @@
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
+        <main>
+            @RenderBody()
+        </main>
         <footer>
-            <p>&copy; @DateTime.Now.Year - MusicApp</p>
+            <p style="clear:both">&copy; @DateTime.Now.Year - MusicApp</p>
         </footer>
     </div>
 

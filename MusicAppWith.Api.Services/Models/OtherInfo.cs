@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MusicAppWith.Api.Services.Models
 {
-    public class MusicModel
+    public class OtherInfo
     {
+        public int CountMusics { get; set; }
     }
 }

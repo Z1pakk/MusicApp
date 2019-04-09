@@ -21,11 +21,14 @@ namespace MusicAppWithApi
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/fontawesome.min.js"));
+                      "~/Scripts/fontawesome.min.js",
+                      "~/Scripts/all.min.js"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/fontawesome.min.css",
+                      "~/Content/all.min.css",
                       "~/Content/site.css"));
         }
     }

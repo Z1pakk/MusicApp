@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MusicAppWith.Api.Services.Services;
+using MusicAppWith.Api.Services.Models;
 
 namespace MusicAppWithApi.Controllers
 {
     public class MusicController : Controller
     {
         // GET: Music
-        public ActionResult Index()
+        public ActionResult Index(int page=1)
         {
-            return View(new List<MusicViewModel>());
+            ViewBag.Page = page;
+            MusicService service = new MusicService();
+            MusicGeneralViewModel model = service.GetMusics(page, 12);
+            ViewBag.CountMusics = model.OtherInfo.CountMusics;
+            return View(model.Musics);
         }
 
         // GET: Music/Details/5

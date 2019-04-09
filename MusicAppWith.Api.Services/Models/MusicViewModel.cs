@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace MusicAppWithApi.Models
+namespace MusicAppWith.Api.Services.Models
 {
     public class MusicViewModel
     {
@@ -15,9 +15,13 @@ namespace MusicAppWithApi.Models
         [Required]
         public string AlbumName { get; set; }
         [Required]
-        public DateTime ReleaseDate { get; set; }
+        public string ReleaseDate { get; set; }
         [Required]
         public string ArtistName { get; set; }
+        [Required]
+        public string DownloadLink { get; set; }
+        [Required]
+        public string ListenUrl { get; set; }
 
         public string Image { get; set; }
 
@@ -28,4 +32,5 @@ namespace MusicAppWithApi.Models
         public int Dislikes { get; set; }
 
     }
+
 }
