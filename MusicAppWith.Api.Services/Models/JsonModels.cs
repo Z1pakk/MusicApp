@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MusicAppWith.Api.Services.Models
 {
+    //Обьекты которые будут конвертируемые из JSON
     public class JsonModel
     {
         [JsonProperty("headers")]
@@ -17,6 +18,7 @@ namespace MusicAppWith.Api.Services.Models
 
     public class JsonHeader
     {
+        //Количество всего песен
         [JsonProperty("results_fullcount")]
         public int results_fullcount { get; set; }
     }
@@ -44,16 +46,12 @@ namespace MusicAppWith.Api.Services.Models
     }
     public class StatsModel
     {
+        //Количество скачиваний 
         [JsonProperty("rate_downloads_total")]
         public int rate_downloads_total { get; set; }
         [JsonProperty("likes")]
         public int likes { get; set; }
         [JsonProperty("dislikes")]
         public int dislikes { get; set; }
-    }
-    public class AccessLogin
-    {
-        [JsonProperty("access_token")]
-        public string access_token { get; set; }
     }
 }

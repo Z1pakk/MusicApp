@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusicAppWith.Api.Services.Models
 {
+    //Обьект который будет возвращаеться в контролер
     public class MusicGeneralViewModel
     {
         public MusicGeneralViewModel()

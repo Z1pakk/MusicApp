@@ -18,6 +18,7 @@ namespace MusicAppWithApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //Настройка AutoMapper (с который обьектов куда и с которых полей нужно поместить куда)
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<MusicModel, MusicViewModel>()
