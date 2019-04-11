@@ -8,8 +8,13 @@ namespace MusicAppWith.Api.Services.Models
 {
     public class MusicGeneralViewModel
     {
+        public MusicGeneralViewModel()
+        {
+            Musics = new List<MusicViewModel>();
+        }
         public OtherInfo OtherInfo { get; set; }
         public List<MusicViewModel> Musics { get; set; }
-        
+        public string Error { get; set; }
+
     }
 }

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAppWithApi", "MusicAppWithApi\MusicAppWithApi.csproj", "{EC24534A-FB77-427E-B2AC-3D6F1FF5A41B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundBoxWithApi", "MusicAppWithApi\SoundBoxWithApi.csproj", "{EC24534A-FB77-427E-B2AC-3D6F1FF5A41B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicAppWith.Api.Services", "MusicAppWith.Api.Services\MusicAppWith.Api.Services.csproj", "{4CA402D9-5930-4DC6-B7F3-2271C81FB4F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundBox.Api.Services", "MusicAppWith.Api.Services\SoundBox.Api.Services.csproj", "{4CA402D9-5930-4DC6-B7F3-2271C81FB4F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

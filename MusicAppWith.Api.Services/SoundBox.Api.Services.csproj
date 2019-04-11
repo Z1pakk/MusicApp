@@ -53,10 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\GetConfigHelper.cs" />
+    <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\JsonModels.cs" />
     <Compile Include="Models\MusicGeneralViewModel.cs" />
     <Compile Include="Models\OtherInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\MusicService.cs" />
     <Compile Include="Models\MusicViewModel.cs" />
   </ItemGroup>

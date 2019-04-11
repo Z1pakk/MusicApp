@@ -51,4 +51,9 @@ namespace MusicAppWith.Api.Services.Models
         [JsonProperty("dislikes")]
         public int dislikes { get; set; }
     }
+    public class AccessLogin
+    {
+        [JsonProperty("access_token")]
+        public string access_token { get; set; }
+    }
 }

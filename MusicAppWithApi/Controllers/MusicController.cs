@@ -12,13 +12,29 @@ namespace MusicAppWithApi.Controllers
     public class MusicController : Controller
     {
         // GET: Music
-        public ActionResult Index(int page=1)
+        [HttpGet]
+        public ActionResult Index(string searchText,int page = 1)
         {
             ViewBag.Page = page;
+            ViewBag.SearchText = searchText;
             MusicService service = new MusicService();
-            MusicGeneralViewModel model = service.GetMusics(page, 12);
-            ViewBag.CountMusics = model.OtherInfo.CountMusics;
+            MusicGeneralViewModel model = service.GetMusics(page, 12, searchText);
+
+            if (model.Error == null)
+            {
+                ViewBag.Error = null;
+                ViewBag.CountMusics = model.OtherInfo.CountMusics;
+            }
+            else
+            {
+                ViewBag.Error = model.Error;
+            }
             return View(model.Musics);
+        }
+        [HttpPost]
+        public ActionResult Search(int page,string text)
+        {
+            return RedirectToAction("Index", new { searchText = text,page=page });
         }
 
         // GET: Music/Details/5

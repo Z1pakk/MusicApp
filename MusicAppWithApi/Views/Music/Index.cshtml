@@ -4,55 +4,77 @@
     ViewBag.Title = "Enjoy the music";
 }
 
-<h2>Enjoy the music (@ViewBag.CountMusics tracks)</h2>
-<div class="pag-buttons">
-    <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page-1  })' class="@(ViewBag.Page==1?"disabled":"") btn btn-primary">
-        <i class='fas fa-chevron-left'></i>
-    </a>
-    <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page+1 })' class="btn btn-primary">
-        <i class='fas fa-chevron-right'></i>
-    </a>
-</div>
-<div class="container-fluid" style="padding:0px;clear:both;margin-top:5px;">
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-lg-4 card-content">
-                <div class="card">
-                    <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.ArtistName)</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Album: @Html.DisplayFor(modelItem => item.AlbumName)</li>
-                        <li class="list-group-item">Downloads: <b>@Html.DisplayFor(modelItem => item.Downloads)</b></li>
-                        <li class="list-group-item">Release: @Html.DisplayFor(modelItem => item.ReleaseDate)</li>
-                        <li class="list-group-item">
-                            <b style="color:green">
-                                <i class="far fa-thumbs-up"></i> @Html.DisplayFor(modelItem => item.Likes)
-                            </b>
-                            &nbsp;
-                            <span style="color:red">
-                                <i class="far fa-thumbs-down"></i> @Html.DisplayFor(modelItem => item.Dislikes)
-                            </span>
-                        </li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="@Html.DisplayFor(modelItem => item.ListenUrl)" target="_blank" class="card-link"><i class="fas fa-headphones"></i> Listen</a>
-                        <a href="@Html.DisplayFor(modelItem => item.DownloadLink)" class="card-link"><i class="fas fa-download"></i> Download</a>
+@using (Html.BeginForm("Search", "Music", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline my-2 my-lg-0" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="input-group w-100 mb-2">
+        <input class="form-control" type="search" placeholder="Type name of track..." name="text" aria-label="Search" value="@ViewBag.SearchText">
+        <input type="hidden" name="page" value="@ViewBag.Page">
+        <div class="input-group-append">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+    </div>
+}
+@if (@ViewBag.Error != null)
+{
+
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Error
+    </div>
+}
+else
+{
+    <h2>Enjoy the music (@ViewBag.CountMusics tracks)</h2>
+    <div class="pag-buttons">
+        <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page-1,searchText=ViewBag.SearchText  })' class="@(ViewBag.Page==1?"disabled":"") btn btn-primary">
+            <i class='fas fa-chevron-left'></i>
+        </a>
+        <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page+1,searchText=ViewBag.SearchText })' class="btn btn-primary">
+            <i class='fas fa-chevron-right'></i>
+        </a>
+    </div>
+    <div class="container-fluid" style="padding:0px;clear:both;margin-top:5px;">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 card-content">
+                    <div class="card">
+                        <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.ArtistName)</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Album: @Html.DisplayFor(modelItem => item.AlbumName)</li>
+                            <li class="list-group-item">Downloads: <b>@Html.DisplayFor(modelItem => item.Downloads)</b></li>
+                            <li class="list-group-item">Release: @Html.DisplayFor(modelItem => item.ReleaseDate)</li>
+                            <li class="list-group-item">
+                                <b style="color:green">
+                                    <i class="far fa-thumbs-up"></i> @Html.DisplayFor(modelItem => item.Likes)
+                                </b>
+                                &nbsp;
+                                <span style="color:red">
+                                    <i class="far fa-thumbs-down"></i> @Html.DisplayFor(modelItem => item.Dislikes)
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="@Html.DisplayFor(modelItem => item.ListenUrl)" target="_blank" class="card-link"><i class="fas fa-headphones"></i> Listen</a>
+                            <a href="@Html.DisplayFor(modelItem => item.DownloadLink)" class="card-link"><i class="fas fa-download"></i> Download</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
 
+        </div>
     </div>
-</div>
-<div class="pag-buttons">
-    <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page-1})' class="@(ViewBag.Page==1?"disabled":"") btn btn-primary">
-        <i class='fas fa-chevron-left'></i>
-    </a>
-    <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page+1 })' class="btn btn-primary">
-        <i class='fas fa-chevron-right'></i>
-    </a>
-</div>
+    <div class="pag-buttons">
+        <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page-1,searchText=ViewBag.SearchText})' class="@(ViewBag.Page==1?"disabled":"") btn btn-primary">
+            <i class='fas fa-chevron-left'></i>
+        </a>
+        <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page+1,searchText=ViewBag.SearchText })' class="btn btn-primary">
+            <i class='fas fa-chevron-right'></i>
+        </a>
+    </div>
+
+}

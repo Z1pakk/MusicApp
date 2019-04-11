@@ -8,9 +8,9 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg  navbar-light bg-light">
         <div class="container">
-            @Html.ActionLink("MusicApp", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("MusicApp", "Index", new { controller = "Music" }, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -19,15 +19,15 @@
                 <ul class="navbar-nav mr-auto">
                     @{
                         string activeController = ViewContext.RouteData.Values["Controller"].ToString();
-                        string activeLink=ViewContext.RouteData.Values["Action"].ToString();
+                        string activeLink = ViewContext.RouteData.Values["Action"].ToString();
                     }
-                    <li class="@(activeLink=="Index"&&activeController=="Home"?"active":"") nav-item">
-                        @Html.ActionLink("Home", "Index", new { controller = "Home" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="@(activeLink=="Index"&&activeController=="Music"?"active":"") nav-item">
-                        @Html.ActionLink("Musics", "Index", new { controller = "Music" }, new { @class = "nav-link" })
-                    </li>
                 </ul>
+                <div class="navbar-nav mr-0">
+                    <div class="nav-item">
+                        @*@Html.ActionLink("Login", "Index", new { controller = "Account" })*@
+                        <input id="jamendo-login" class="nav-link" type="button" value="Login"/>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -42,6 +42,66 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", false);
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var startlink = "https://api.jamendo.com/v3.0";
+            var jamendo_token = localStorage.getItem("jamendo_token");
+
+            if (localStorage.getItem("jamendo_token")) {
+                setJamendoDetails(jamendo_token);
+            }
+            $("#jamendo-login").click(function () {
+                jamendoConnect();
+            });
+            function jamendoConnect() {
+                //https://api.jamendo.com/v3.0/oauth/authorize?client_id=fd603513&redirect_uri=http://localhost:52679/Account/FinishLogin
+                var JAMENDO_AUTH_URL = "https://api.jamendo.com/v3.0/oauth/authorize",
+                    JAMENDO_CLIENT_ID = "fd603513",
+                    JAMENDO_REDIRECT_URL = "http://localhost:52679/Account/FinishLogin";
+                var authUrl =
+                    JAMENDO_AUTH_URL + "?client_id=" +
+                    JAMENDO_CLIENT_ID + "&redirect_uri=" +
+                    encodeURIComponent(JAMENDO_REDIRECT_URL) + "";
+                var width = 450,
+                    height = 730,
+                    left = (screen.width / 2) - (width / 2),
+                    top = (screen.height / 2) - (height / 2);
+                var w = window.open(
+                    authUrl,
+                    'Jamendo',
+                    'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
+                );
+                window.addEventListener("message", function (event) {
+                    var hash = JSON.parse(event.data);
+                    if (hash.type == 'access_token_jamendo') {
+                        callback(hash.access_token);
+                    }
+                }, false);
+
+                var callback = function (token) {
+                    localStorage.setItem('jamendo_token', token);
+                    //setSpotifyDetails(token);
+                };
+            }
+            function setJamendoDetails(token) {
+                $.ajax({
+                    url:'http://localhost:52679/Account/UserName',
+                    //url: 'https://api.jamendo.com/v3.0/users?client_id=fd603513&format=jsonpretty&access_token='+token,
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function (response) {
+                        var username = response.results.name;
+                        $('.spotify-login-form').addClass('hidden');
+                        $('.spotify-details').prepend('<div>Hello <b>' + username + '</b>, you are now logged in with spotify, you can fetch any data you need for your awsome app!</div>').removeClass('hidden');
+                    },
+                    error: function () {
+                        // handle error
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
