@@ -11,15 +11,21 @@ namespace MusicAppWithApi.Controllers
 {
     public class MusicController : Controller
     {
+        //Выввод станицы со списком музыки
         // GET: Music
         [HttpGet]
         public ActionResult Index(string searchText,int page = 1)
         {
+            //Сохранение на странице страницы пагинации и текст который ввели
             ViewBag.Page = page;
             ViewBag.SearchText = searchText;
+            //Вызов метода из сервиса MusicService
             MusicService service = new MusicService();
+            //Мы передаем страницу, количество для показа, текст по которому искать
+            //Он возвращает нам песни в виде обьектов.
             MusicGeneralViewModel model = service.GetMusics(page, 12, searchText);
 
+            //Проверяем небыло ли ошибки
             if (model.Error == null)
             {
                 ViewBag.Error = null;
@@ -31,82 +37,12 @@ namespace MusicAppWithApi.Controllers
             }
             return View(model.Musics);
         }
+        //Метод когда мы кликнем на кнопку "Поиск"
         [HttpPost]
         public ActionResult Search(int page,string text)
         {
+            //Перенапрявляет на метод Index с параметрами
             return RedirectToAction("Index", new { searchText = text,page=page });
-        }
-
-        // GET: Music/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Music/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Music/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Music/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Music/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Music/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Music/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

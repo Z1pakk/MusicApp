@@ -1,30 +1,32 @@
 ﻿@model IEnumerable<MusicAppWith.Api.Services.Models.MusicViewModel>
 
 @{
-    ViewBag.Title = "Enjoy the music";
+    ViewBag.Title = "Наслаждайся музыкой";
 }
 
+@*Форма для отправки текста для поиска*@
 @using (Html.BeginForm("Search", "Music", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline my-2 my-lg-0" }))
 {
     @Html.AntiForgeryToken()
-    <div class="input-group w-100 mb-2">
-        <input class="form-control" type="search" placeholder="Type name of track..." name="text" aria-label="Search" value="@ViewBag.SearchText">
-        <input type="hidden" name="page" value="@ViewBag.Page">
-        <div class="input-group-append">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </div>
+<div class="input-group w-100 mb-2">
+    <input class="form-control" type="search" placeholder="Введите название песни..." name="text" aria-label="Search" value="@ViewBag.SearchText">
+    @*Скрытое поле с текущей старницей*@
+    <input type="hidden" name="page" value="@ViewBag.Page">
+    <div class="input-group-append">
+        <button class="btn btn-outline-success" type="submit">Поиск</button>
     </div>
+</div>
 }
 @if (@ViewBag.Error != null)
 {
-
+    //Если ошибка
     <div class="alert alert-danger" role="alert">
         @ViewBag.Error
     </div>
 }
 else
 {
-    <h2>Enjoy the music (@ViewBag.CountMusics tracks)</h2>
+    <h2>Наслаждайся музыкой (@ViewBag.CountMusics песен)</h2>
     <div class="pag-buttons">
         <a href='@Url.Action("Index", new { controller = "Music",page=ViewBag.Page-1,searchText=ViewBag.SearchText  })' class="@(ViewBag.Page==1?"disabled":"") btn btn-primary">
             <i class='fas fa-chevron-left'></i>
@@ -45,9 +47,9 @@ else
                             <p class="card-text">@Html.DisplayFor(modelItem => item.ArtistName)</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Album: @Html.DisplayFor(modelItem => item.AlbumName)</li>
-                            <li class="list-group-item">Downloads: <b>@Html.DisplayFor(modelItem => item.Downloads)</b></li>
-                            <li class="list-group-item">Release: @Html.DisplayFor(modelItem => item.ReleaseDate)</li>
+                            <li class="list-group-item">Альбом: @Html.DisplayFor(modelItem => item.AlbumName)</li>
+                            <li class="list-group-item">Скачиваний: <b>@Html.DisplayFor(modelItem => item.Downloads)</b></li>
+                            <li class="list-group-item">Дата выхода: @Html.DisplayFor(modelItem => item.ReleaseDate)</li>
                             <li class="list-group-item">
                                 <b style="color:green">
                                     <i class="far fa-thumbs-up"></i> @Html.DisplayFor(modelItem => item.Likes)
@@ -59,8 +61,8 @@ else
                             </li>
                         </ul>
                         <div class="card-body">
-                            <a href="@Html.DisplayFor(modelItem => item.ListenUrl)" target="_blank" class="card-link"><i class="fas fa-headphones"></i> Listen</a>
-                            <a href="@Html.DisplayFor(modelItem => item.DownloadLink)" class="card-link"><i class="fas fa-download"></i> Download</a>
+                            <a href="@Html.DisplayFor(modelItem => item.ListenUrl)" target="_blank" class="card-link"><i class="fas fa-headphones"></i> Слушать</a>
+                            <a href="@Html.DisplayFor(modelItem => item.DownloadLink)" class="card-link"><i class="fas fa-download"></i> Скачать</a>
                         </div>
                     </div>
                 </div>

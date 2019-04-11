@@ -11,6 +11,8 @@ namespace MusicAppWith.Api.Services.Helpers
     {
         public static string GetConfig(string name)
         {
+            //Возвращает выбраное значение из App.Config с помощью библиотеки System.Configuration 
+            //и обьекта ConfigurationManager
             return ConfigurationManager.AppSettings.Get(name);
         }
     }
